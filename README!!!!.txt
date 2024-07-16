@@ -1,1 +1,0 @@
-Before you run the script, go to config.ini and set the paths and time of day you want.
