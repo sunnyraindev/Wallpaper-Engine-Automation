@@ -3,9 +3,9 @@ import schedule
 import time
 import os
 import sys
-import shutil
 import configparser
 import psutil
+import winshell
 from datetime import datetime
 
 
@@ -60,11 +60,13 @@ def update_wallpaper():
 def add_to_startup():
     startup_folder = os.path.join(os.getenv('APPDATA'), r'Microsoft\Windows\Start Menu\Programs\Startup')
     exe_path = sys.argv[0]
-    startup_script_path = os.path.join(startup_folder, os.path.basename(exe_path))
+    shortcut_path = os.path.join(startup_folder, os.path.basename(exe_path) + '.lnk')
 
-    if not os.path.exists(startup_script_path):
-        shutil.copy(exe_path, startup_script_path)
-        print(f"Added {exe_path} to startup folder.")
+    if not os.path.exists(shortcut_path):
+        with winshell.shortcut(shortcut_path) as shortcut:
+            shortcut.path = exe_path
+            shortcut.working_directory = os.path.dirname(exe_path)
+            shortcut.description = "Wallpaper Script"
 
 def handle_existing_process():
     if os.path.exists(LOCK_FILE_PATH):
