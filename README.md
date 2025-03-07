@@ -5,5 +5,6 @@ My first good project
 Simple tool to automate changing your wallpaper engine wallpaper based on time of day
 
 To-do list:
-  make a gui
+`
+make a gui
 
